@@ -1,0 +1,67 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.2.4 (swiftlang-1103.0.32.9 clang-1103.0.32.53)
+// swift-module-flags: -target arm64-apple-ios12.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -module-name BookeeyPaySDK
+@_exported import BookeeyPaySDK
+import CommonCrypto
+import Foundation
+import Swift
+import UIKit
+import WebKit
+@objc public protocol BookeeyPayDelegate {
+  @objc func paymentSuccessCallBack(transactionData: BookeeyPaySDK.BookeeyTransactionResponse)
+  @objc func paymentFailueCallBack(transactionFailureData: BookeeyPaySDK.BookeeyFailResponse)
+  @objc func paymentCancel(transactionFailureData: BookeeyPaySDK.BookeeyFailResponse)
+}
+@objc @_hasMissingDesignatedInitializers @objcMembers public class PaymentViewController : UIKit.UIViewController {
+  @objc public var environMent: BookeeyPaySDK.SDKEnvironment
+  @objc public var delegate: BookeeyPaySDK.BookeeyPayDelegate?
+  @objc public init(merchantId: Swift.String, subMerchantId: Swift.String, merchantName: Swift.String, merchantKey: Swift.String, amountToBePaid: Swift.String, paymentMethod: Swift.String, paymentSuccessUrl: Swift.String, paymentFailureUrl: Swift.String, uniqueOrderId: Swift.String)
+  @objc override dynamic public func viewDidLoad()
+  @objc override dynamic public func observeValue(forKeyPath keyPath: Swift.String?, of object: Any?, change: [Foundation.NSKeyValueChangeKey : Any]?, context: Swift.UnsafeMutableRawPointer?)
+  @objc deinit
+  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+}
+extension PaymentViewController : WebKit.WKNavigationDelegate {
+  @objc dynamic public func webView(_ webView: WebKit.WKWebView, decidePolicyFor navigationAction: WebKit.WKNavigationAction, decisionHandler: @escaping (WebKit.WKNavigationActionPolicy) -> Swift.Void)
+  @objc dynamic public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
+  @objc dynamic public func webView(_ webView: WebKit.WKWebView, didStartProvisionalNavigation navigation: WebKit.WKNavigation!)
+  @objc dynamic public func webView(_ webView: WebKit.WKWebView, didFail navigation: WebKit.WKNavigation!, withError error: Swift.Error)
+}
+@objc public enum SDKEnvironment : Swift.Int {
+  case test
+  case live
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public class SDKModel {
+  public init()
+  public func printnnn()
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers @objcMembers public class BookeeyTransactionResponse : ObjectiveC.NSObject {
+  @objc final public let paymentReferenceId: Swift.String
+  @objc final public let transactionId: Swift.String
+  @objc final public let transationTime: Swift.String
+  @objc deinit
+  @objc override dynamic public init()
+}
+@objc @_hasMissingDesignatedInitializers @objcMembers public class BookeeyFailResponse : ObjectiveC.NSObject {
+  @objc final public let errorCode: Swift.String
+  @objc final public let errorMessage: Swift.String
+  @objc final public let transationTime: Swift.String
+  @objc deinit
+  @objc override dynamic public init()
+}
+@objcMembers public class PaymentResponse : Swift.Codable {
+  @objc final public let paymentUrl: Swift.String
+  @objc final public let merchantCommission: Swift.String?
+  @objc final public let paymentGateway: Swift.String
+  @objc final public let paymentToMerchant: Swift.String?
+  @objc final public let errorMsg: Swift.String
+  @objc deinit
+  required public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
