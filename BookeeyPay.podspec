@@ -2,8 +2,8 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "BookeeyPay"
-  spec.version      = "1.1.0"
-  spec.summary      = "BookeeyPay hassle free iOS payment SDK"
+  spec.version      = "1.2.0"
+  spec.summary      = "BookeeyPay hassle free iOS payment SDK for both ObjectiveC and Swift"
 
   spec.description  = <<-DESC
                     Bookeey Pay is easy payment integration in iOS apps
