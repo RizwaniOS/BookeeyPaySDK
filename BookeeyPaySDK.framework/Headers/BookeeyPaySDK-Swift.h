@@ -297,6 +297,7 @@ SWIFT_CLASS("_TtC13BookeeyPaySDK19PayloadRequestModel")
 @end
 
 enum SDKEnvironment : NSInteger;
+@class UIColor;
 @class NSCoder;
 @class NSBundle;
 
@@ -305,6 +306,11 @@ SWIFT_CLASS("_TtC13BookeeyPaySDK21PaymentViewController")
 @property (nonatomic) enum SDKEnvironment environMent;
 @property (nonatomic, strong) id <BookeeyPayDelegate> _Nullable delegate;
 @property (nonatomic, strong) PayloadRequestModel * _Nullable payLoadRequest;
+@property (nonatomic, strong) UIColor * _Nullable themeColor;
+@property (nonatomic, strong) UIColor * _Nullable tintColor;
+@property (nonatomic, copy) NSString * _Nullable cancelButtonTitle;
+@property (nonatomic, copy) NSString * _Nullable alertButtonTitle;
+@property (nonatomic, copy) NSString * _Nullable headerTitle;
 - (nonnull instancetype)initWithPayLoadModel:(PayloadRequestModel * _Nonnull)payLoadModel OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder SWIFT_UNAVAILABLE;
 - (void)viewDidLoad;

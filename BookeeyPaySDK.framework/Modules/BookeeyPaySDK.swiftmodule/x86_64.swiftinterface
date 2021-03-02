@@ -16,6 +16,11 @@ import WebKit
   @objc public var environMent: BookeeyPaySDK.SDKEnvironment
   @objc public var delegate: BookeeyPaySDK.BookeeyPayDelegate?
   @objc public var payLoadRequest: BookeeyPaySDK.PayloadRequestModel?
+  @objc public var themeColor: UIKit.UIColor?
+  @objc public var tintColor: UIKit.UIColor?
+  @objc public var cancelButtonTitle: Swift.String?
+  @objc public var alertButtonTitle: Swift.String?
+  @objc public var headerTitle: Swift.String?
   @objc public init(payLoadModel: BookeeyPaySDK.PayloadRequestModel)
   @objc override dynamic public func viewDidLoad()
   @objc public func getCurrentMilliSecs() -> Swift.Int
@@ -63,7 +68,7 @@ public class SDKModel {
   @objc final public let merchantCommission: Swift.String?
   @objc final public let paymentGateway: Swift.String
   @objc final public let paymentToMerchant: Swift.String?
-  @objc final public let errorMsg: Swift.String
+  @objc final public let errorMsg: Swift.String?
   @objc deinit
   required public init(from decoder: Swift.Decoder) throws
   public func encode(to encoder: Swift.Encoder) throws
