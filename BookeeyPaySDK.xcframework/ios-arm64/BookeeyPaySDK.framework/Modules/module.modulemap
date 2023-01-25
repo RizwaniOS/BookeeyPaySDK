@@ -1,0 +1,11 @@
+framework module BookeeyPaySDK {
+  umbrella header "BookeeyPaySDK.h"
+
+  export *
+  module * { export * }
+}
+
+module BookeeyPaySDK.Swift {
+  header "BookeeyPaySDK-Swift.h"
+  requires objc
+}

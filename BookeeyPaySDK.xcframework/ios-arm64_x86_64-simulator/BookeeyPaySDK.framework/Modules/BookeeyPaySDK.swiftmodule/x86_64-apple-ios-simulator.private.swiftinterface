@@ -1,0 +1,374 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.7 (swiftlang-5.7.0.127.4 clang-1400.0.29.50)
+// swift-module-flags: -target x86_64-apple-ios12.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name BookeeyPaySDK
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+@_exported import BookeeyPaySDK
+import CommonCrypto
+import Foundation
+import Swift
+import UIKit
+import WebKit
+import _Concurrency
+import _StringProcessing
+@objc public enum SDKApiRequestType : Swift.Int {
+  case loadWallet
+  case paySdk
+  case splitPayment
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum SDKEnvironment : Swift.Int {
+  case test
+  case live
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public protocol BookeeyPayDelegate {
+  @objc func paymentSuccessCallBack(transactionData: BookeeyPaySDK.BookeeySuccessResponse)
+  @objc func paymentFailueCallBack(transactionFailureData: BookeeyPaySDK.BookeeyFailResponse)
+  @objc func paymentCancel(transactionFailureData: BookeeyPaySDK.BookeeyErrorResponse)
+}
+@objc public protocol BookeeyLoadWalletDelegate {
+  @objc func loadWalletSuccessCallBack(transactionData: BookeeyPaySDK.BookeeySuccessResponse)
+  @objc func loadWalletFailureCallBack(transactionFailureData: BookeeyPaySDK.BookeeyFailResponse)
+  @objc func loadWalletPaymentCancel(transactionFailureData: BookeeyPaySDK.BookeeyErrorResponse)
+}
+@objc public protocol BookeeySplitPaymentDelegate {
+  @objc func splitPaymentSuccessCallBack(transactionData: BookeeyPaySDK.BookeeySuccessResponse)
+  @objc func splitPaymentFailureCallBack(transactionFailureData: BookeeyPaySDK.BookeeyFailResponse)
+  @objc func splitPaymentCancel(transactionFailureData: BookeeyPaySDK.BookeeyErrorResponse)
+}
+@objc @_hasMissingDesignatedInitializers @objcMembers @_Concurrency.MainActor(unsafe) public class PaymentViewController : UIKit.UIViewController {
+  @objc @_Concurrency.MainActor(unsafe) public var environMent: BookeeyPaySDK.SDKEnvironment
+  @objc @_Concurrency.MainActor(unsafe) public var sdkApiRequestType: BookeeyPaySDK.SDKApiRequestType
+  @objc @_Concurrency.MainActor(unsafe) public var merchantSecretKey: Swift.String?
+  @objc @_Concurrency.MainActor(unsafe) public var merchantId: Swift.String?
+  @objc @_Concurrency.MainActor(unsafe) public var paymentMethod: Swift.String?
+  @objc @_Concurrency.MainActor(unsafe) public var headerTitle: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var alertButtonTitle: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var cancelButtonTitle: Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public var payDelegate: BookeeyPaySDK.BookeeyPayDelegate?
+  @objc @_Concurrency.MainActor(unsafe) public var loadWalletDelegate: BookeeyPaySDK.BookeeyLoadWalletDelegate?
+  @objc @_Concurrency.MainActor(unsafe) public var splitPaymentDelegate: BookeeyPaySDK.BookeeySplitPaymentDelegate?
+  @objc @_Concurrency.MainActor(unsafe) public var splitPaymentRequest: BookeeyPaySDK.SplitPaymentRequestModel?
+  @objc @_Concurrency.MainActor(unsafe) public var loadWalletRequest: BookeeyPaySDK.LoadWalletRequestModel?
+  @objc @_Concurrency.MainActor(unsafe) public var payLoadRequest: BookeeyPaySDK.PayloadRequestModel?
+  @objc @_Concurrency.MainActor(unsafe) public var isCancelButtonEnabled: Swift.Bool
+  @objc @_Concurrency.MainActor(unsafe) public var themeColor: UIKit.UIColor
+  @objc @_Concurrency.MainActor(unsafe) public var tintColor: UIKit.UIColor
+  @objc @_Concurrency.MainActor(unsafe) public var titleColor: UIKit.UIColor
+  @objc @_Concurrency.MainActor(unsafe) public init(payLoadModel: BookeeyPaySDK.PayloadRequestModel? = nil, loadWalletModel: BookeeyPaySDK.LoadWalletRequestModel? = nil, splitPaymentModel: BookeeyPaySDK.SplitPaymentRequestModel? = nil)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewWillAppear(_ animated: Swift.Bool)
+  @objc @_Concurrency.MainActor(unsafe) public func walletAlonePayment()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func observeValue(forKeyPath keyPath: Swift.String?, of object: Any?, change: [Foundation.NSKeyValueChangeKey : Any]?, context: Swift.UnsafeMutableRawPointer?)
+  @objc deinit
+}
+extension BookeeyPaySDK.PaymentViewController : WebKit.WKNavigationDelegate {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func webView(_ webView: WebKit.WKWebView, decidePolicyFor navigationAction: WebKit.WKNavigationAction, decisionHandler: @escaping (WebKit.WKNavigationActionPolicy) -> Swift.Void)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func webView(_ webView: WebKit.WKWebView, didFinish navigation: WebKit.WKNavigation!)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func webView(_ webView: WebKit.WKWebView, didStartProvisionalNavigation navigation: WebKit.WKNavigation!)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func webView(_ webView: WebKit.WKWebView, didFail navigation: WebKit.WKNavigation!, withError error: Swift.Error)
+}
+@_hasMissingDesignatedInitializers public class CodableEncodingManager {
+  @objc deinit
+}
+public class SDKModel {
+  public init()
+  public func printnnn()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class BookeeyTransactionResponse : ObjectiveC.NSObject {
+  final public let paymentReferenceId: Swift.String
+  final public let transactionId: Swift.String
+  final public let transationTime: Swift.String
+  @objc deinit
+}
+@objc public class LoadWalletResponse : ObjectiveC.NSObject, Swift.Codable {
+  final public let data: BookeeyPaySDK.LoadTransactionDetail?
+  final public let isSuccess: Swift.Bool?
+  final public let message: Swift.String?
+  final public let isWltAlone: Swift.Bool?
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc public class LoadTransactionDetail : ObjectiveC.NSObject, Swift.Codable {
+  final public let loadWalletResponse: BookeeyPaySDK.LoadTransactionResponseDetail?
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc public class LoadTransactionResponseDetail : ObjectiveC.NSObject, Swift.Codable {
+  final public let payUrl: Swift.String?
+  final public let paymentGateway: Swift.String?
+  final public let wltKey: Swift.String?
+  final public let errorMessage: Swift.String?
+  final public let status: Swift.String?
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@_hasMissingDesignatedInitializers @objc public class BookeeySuccessResponse : ObjectiveC.NSObject {
+  final public let merchantTxnId: Swift.String
+  final public let transactionId: Swift.String
+  final public let capturedAmount: Swift.String
+  final public let pgRef: Swift.String
+  final public let payMethod: Swift.String
+  final public let dOResponse: Swift.String
+  final public let tOResponse: Swift.String
+  final public let payStat: Swift.String
+  final public let walletBalance: Swift.String
+  final public let errorDescription: Swift.String
+  final public let walletTrackUID: Swift.String
+  final public let errorCode: Swift.String
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class BookeeyFailResponse : ObjectiveC.NSObject {
+  final public let merchantTxnId: Swift.String
+  final public let transactionId: Swift.String
+  final public let capturedAmount: Swift.String
+  final public let pgRef: Swift.String
+  final public let payMethod: Swift.String
+  final public let dOResponse: Swift.String
+  final public let tOResponse: Swift.String
+  final public let payStat: Swift.String
+  final public let walletBalance: Swift.String
+  final public let errorDescription: Swift.String
+  final public let walletTrackUID: Swift.String
+  final public let errorCode: Swift.String
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class BookeeyErrorResponse : ObjectiveC.NSObject {
+  final public let errorCode: Swift.String
+  final public let errorMessage: Swift.String
+  final public let merchantTxnId: Swift.String
+  @objc deinit
+}
+@objc public class LoadWalletRequestModel : ObjectiveC.NSObject, Swift.Codable {
+  public var DBRqst: Swift.String
+  public var Do_Appinfo: BookeeyPaySDK.AppInfoModel
+  public var Do_MerchAuth: BookeeyPaySDK.MerchantAuthModel
+  public var Do_Dvcinfo: BookeeyPaySDK.DeviceInfoModel
+  public var Do_TxnDtl: BookeeyPaySDK.LoadTransactionDetailModel
+  public var Do_UsrDtl: BookeeyPaySDK.UserDetailInfoModel
+  public var Do_WltDtl: BookeeyPaySDK.WalletKeyInfoModel
+  public init(DBRqst: Swift.String = "Ld_Wlt", Do_Appinfo: BookeeyPaySDK.AppInfoModel = AppInfoModel(), Do_MerchAuth: BookeeyPaySDK.MerchantAuthModel = MerchantAuthModel(), Do_Dvcinfo: BookeeyPaySDK.DeviceInfoModel = DeviceInfoModel(), Do_TxnDtl: BookeeyPaySDK.LoadTransactionDetailModel = LoadTransactionDetailModel(), Do_UsrDtl: BookeeyPaySDK.UserDetailInfoModel = UserDetailInfoModel(), Do_WltDtl: BookeeyPaySDK.WalletKeyInfoModel = WalletKeyInfoModel())
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc public class PayloadRequestModel : ObjectiveC.NSObject, Swift.Codable {
+  public var DBRqst: Swift.String
+  public var Do_Appinfo: BookeeyPaySDK.AppInfoModel
+  public var Do_MerchDtl: BookeeyPaySDK.MerchantPayInfoModel
+  public var Do_PyrDtl: BookeeyPaySDK.PayerInfoModel
+  public var Do_TxnHdr: BookeeyPaySDK.TransactionPayHdrModel
+  public var Do_TxnDtl: [BookeeyPaySDK.TransactionDetailModel]
+  public var Do_MoreDtl: BookeeyPaySDK.MorePayDetail
+  public init(DBRqst: Swift.String = "PY_ECom", Do_Appinfo: BookeeyPaySDK.AppInfoModel = AppInfoModel(), Do_MerchDtl: BookeeyPaySDK.MerchantPayInfoModel = MerchantPayInfoModel(), Do_PyrDtl: BookeeyPaySDK.PayerInfoModel = PayerInfoModel(), Do_TxnHdr: BookeeyPaySDK.TransactionPayHdrModel = TransactionPayHdrModel(), Do_TxnDtl: [BookeeyPaySDK.TransactionDetailModel] = [TransactionDetailModel](), Do_MoreDtl: BookeeyPaySDK.MorePayDetail = MorePayDetail())
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc public class SplitPaymentRequestModel : ObjectiveC.NSObject, Swift.Codable {
+  public var DBRqst: Swift.String
+  public var Do_Appinfo: BookeeyPaySDK.AppInfoModel
+  public var Do_Dvcinfo: BookeeyPaySDK.DeviceInfoModel
+  public var Do_TxnHdr: BookeeyPaySDK.SplitPaymentTransactionHdrModel
+  public var Do_TxnDtl: [BookeeyPaySDK.SplitPaymentTransactionDetailModel]
+  public var Do_MerchDtl: BookeeyPaySDK.MerchantInfoModel
+  public var Do_PyrDtl: BookeeyPaySDK.PayerInfoModel
+  public var Do_MerchAuth: BookeeyPaySDK.MerchantAuthModel
+  public var Do_MoreDtl: BookeeyPaySDK.MoreDetail
+  public var Do_UsrAuth: BookeeyPaySDK.UsrAuthModel
+  public var Do_WltDtl: BookeeyPaySDK.WalletKeyInfoModel
+  public var merchantKey: Swift.String
+  public init(DBRqst: Swift.String = "Ld_Pay", Do_Appinfo: BookeeyPaySDK.AppInfoModel = AppInfoModel(), Do_Dvcinfo: BookeeyPaySDK.DeviceInfoModel = DeviceInfoModel(), Do_TxnHdr: BookeeyPaySDK.SplitPaymentTransactionHdrModel = SplitPaymentTransactionHdrModel(), Do_TxnDtl: [BookeeyPaySDK.SplitPaymentTransactionDetailModel] = [SplitPaymentTransactionDetailModel](), Do_MerchDtl: BookeeyPaySDK.MerchantInfoModel = MerchantInfoModel(), Do_PyrDtl: BookeeyPaySDK.PayerInfoModel = PayerInfoModel(), Do_MerchAuth: BookeeyPaySDK.MerchantAuthModel = MerchantAuthModel(), Do_MoreDtl: BookeeyPaySDK.MoreDetail = MoreDetail(), Do_UsrAuth: BookeeyPaySDK.UsrAuthModel = UsrAuthModel(), Do_WltDtl: BookeeyPaySDK.WalletKeyInfoModel = WalletKeyInfoModel(), merchantKey: Swift.String = "")
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc public class SplitPaymentTransactionHdrModel : ObjectiveC.NSObject, Swift.Codable {
+  public var Merch_Txn_UID: Swift.String
+  public var PayFor: Swift.String
+  public var BKY_Txn_UID: Swift.String
+  public var Txn_HDR: Swift.String
+  public var hashMac: Swift.String
+  public init(Merch_Txn_UID: Swift.String = "", PayFor: Swift.String = "ECom", BKY_Txn_UID: Swift.String = "", Txn_HDR: Swift.String = "", hashMac: Swift.String = "")
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc public class SplitPaymentTransactionDetailModel : ObjectiveC.NSObject, Swift.Codable {
+  public var SubMerchUID: Swift.String
+  public var Amount: Swift.String
+  public var PayMthd: Swift.String
+  public var TxnType: Swift.String
+  public init(SubMerchUID: Swift.String = "", Amount: Swift.String = "", PayMthd: Swift.String = "", TxnType: Swift.String = "")
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc public class TransactionPayHdrModel : ObjectiveC.NSObject, Swift.Codable {
+  public var BKY_Txn_UID: Swift.String
+  public var Merch_TrackUID: Swift.String
+  public var Merch_Txn_UID: Swift.String
+  public var PayFor: Swift.String
+  public var PayMethod: Swift.String
+  public var Txn_HDR: Swift.String
+  public var hashMac: Swift.String
+  public init(BKY_Txn_UID: Swift.String = "", Merch_TrackUID: Swift.String = "", Merch_Txn_UID: Swift.String = "", PayFor: Swift.String = "", PayMethod: Swift.String = "", Txn_HDR: Swift.String = "", hashMac: Swift.String = "")
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc public class TransactionHdrModel : ObjectiveC.NSObject, Swift.Codable {
+  public var Merch_Txn_UID: Swift.String
+  public var PayFor: Swift.String
+  public var Paymethod: Swift.String
+  public var Txn_HDR: Swift.String
+  public var hashMac: Swift.String
+  public init(Merch_Txn_UID: Swift.String = "", PayFor: Swift.String = "", Paymethod: Swift.String = "", Txn_HDR: Swift.String = "", hashMac: Swift.String = "")
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc public class TransactionDetailModel : ObjectiveC.NSObject, Swift.Codable {
+  public var SubMerchUID: Swift.String
+  public var Txn_AMT: Swift.String
+  public init(SubMerchUID: Swift.String = "", Txn_AMT: Swift.String = "")
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc public class MerchantPayInfoModel : ObjectiveC.NSObject, Swift.Codable {
+  public var MerchUID: Swift.String
+  public var BKY_PRDENUM: Swift.String
+  public var SURL: Swift.String
+  public var FURL: Swift.String
+  public init(MerchUID: Swift.String = "", BKY_PRDENUM: Swift.String = "ECom", SURL: Swift.String = "", FURL: Swift.String = "")
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc public class MerchantInfoModel : ObjectiveC.NSObject, Swift.Codable {
+  public var MerchUID: Swift.String
+  public var BKY_PRDENUM: Swift.String
+  public var SURL: Swift.String
+  public var FURL: Swift.String
+  public init(MerchUID: Swift.String = "", BKY_PRDENUM: Swift.String = "WLT", SURL: Swift.String = "", FURL: Swift.String = "")
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc public class PayerInfoModel : ObjectiveC.NSObject, Swift.Codable {
+  public var Pyr_MPhone: Swift.String
+  public var Pyr_Name: Swift.String
+  public init(Pyr_MPhone: Swift.String = "", Pyr_Name: Swift.String = "")
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc public class MorePayDetail : ObjectiveC.NSObject, Swift.Codable {
+  public var Cust_Data1: Swift.String
+  public var Cust_Data2: Swift.String
+  public var Cust_Data3: Swift.String
+  public init(Cust_Data1: Swift.String = "", Cust_Data2: Swift.String = "", Cust_Data3: Swift.String = "")
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc public class MoreDetail : ObjectiveC.NSObject, Swift.Codable {
+  public var Cart: Swift.String
+  public init(Cart: Swift.String = "")
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc public class UsrAuthModel : ObjectiveC.NSObject, Swift.Codable {
+  public var UsrSessnUID: Swift.String
+  public var AuthTyp: Swift.String
+  public init(UsrSessnUID: Swift.String = "", AuthTyp: Swift.String = "3")
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc public class MerchantAuthModel : ObjectiveC.NSObject, Swift.Codable {
+  public var MerUID: Swift.String
+  public var MerAuthCD: Swift.String
+  public init(MerUID: Swift.String = "", MerAuthCD: Swift.String = "")
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc public class DeviceInfoModel : ObjectiveC.NSObject, Swift.Codable {
+  public var DevID: Swift.String
+  public var DevOS: Swift.String
+  public var DevcTyp: Swift.String
+  public var MPhnOprtr: Swift.String
+  public var MPhnSIMID: Swift.String
+  public init(DevID: Swift.String = "", DevOS: Swift.String = "", DevcTyp: Swift.String = "", MPhnOprtr: Swift.String = "", MPhnSIMID: Swift.String = "")
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc public class LoadTransactionDetailModel : ObjectiveC.NSObject, Swift.Codable {
+  public var Comission: Swift.String
+  public var Merch_Txn_UID: Swift.String
+  public var PayMthd: Swift.String
+  public var SURL: Swift.String
+  public var FURL: Swift.String
+  public var Amount: Swift.String
+  public var TxnType: Swift.String
+  public init(Comission: Swift.String = "", Merch_Txn_UID: Swift.String = "", PayMthd: Swift.String = "", SURL: Swift.String = "", FURL: Swift.String = "", Amount: Swift.String = "", TxnType: Swift.String = "")
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc public class UserDetailInfoModel : ObjectiveC.NSObject, Swift.Codable {
+  public var WltID: Swift.String
+  public var MPhoneNo: Swift.String
+  public var UserName: Swift.String
+  public init(WltID: Swift.String = "", MPhoneNo: Swift.String = "", UserName: Swift.String = "")
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc public class WalletKeyInfoModel : ObjectiveC.NSObject, Swift.Codable {
+  public var WltID: Swift.String
+  public var WltKey: Swift.String
+  public init(WltID: Swift.String = "", WltKey: Swift.String = "")
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+@objc public class AppInfoModel : ObjectiveC.NSObject, Swift.Codable {
+  public var APIVer: Swift.String
+  public var APPID: Swift.String
+  public var APPTyp: Swift.String
+  public var AppVer: Swift.String
+  public var Country: Swift.String
+  public var DevcType: Swift.String
+  public var HsCode: Swift.String
+  public var IPAddrs: Swift.String
+  public var MdlID: Swift.String
+  public var OS: Swift.String
+  public var UsrSessID: Swift.String
+  public init(APIVer: Swift.String = "1.0", APPID: Swift.String = "PG", APPTyp: Swift.String = "MAPP", AppVer: Swift.String = "1.0", Country: Swift.String = "", DevcType: Swift.String = "iOS", HsCode: Swift.String = "", IPAddrs: Swift.String = "", MdlID: Swift.String = "Pay_Req", OS: Swift.String = "", UsrSessID: Swift.String = "")
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+  required public init(from decoder: Swift.Decoder) throws
+}
+extension BookeeyPaySDK.SDKApiRequestType : Swift.Equatable {}
+extension BookeeyPaySDK.SDKApiRequestType : Swift.Hashable {}
+extension BookeeyPaySDK.SDKApiRequestType : Swift.RawRepresentable {}
+extension BookeeyPaySDK.SDKEnvironment : Swift.Equatable {}
+extension BookeeyPaySDK.SDKEnvironment : Swift.Hashable {}
+extension BookeeyPaySDK.SDKEnvironment : Swift.RawRepresentable {}
